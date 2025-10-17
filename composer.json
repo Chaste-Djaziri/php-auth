@@ -1,0 +1,15 @@
+{
+    "name": "php-auth-app/railway-deployment",
+    "description": "PHP Authentication Application for Railway",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {},
+    "scripts": {
+        "start": "php -S 0.0.0.0:$PORT -t ."
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

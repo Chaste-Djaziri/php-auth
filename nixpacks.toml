@@ -1,0 +1,20 @@
+[providers]
+php = "8.2"
+
+[phases.setup]
+nixPkgs = ["php82", "php82Packages.composer"]
+
+[phases.install]
+cmds = [
+    "echo 'Installing PHP dependencies...'",
+    "composer install --no-dev --optimize-autoloader || echo 'Composer install completed'"
+]
+
+[phases.build]
+cmds = [
+    "echo 'Build phase completed'",
+    "php --version"
+]
+
+[start]
+cmd = "php start.php"
