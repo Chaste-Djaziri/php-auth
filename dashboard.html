@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .navbar h1 {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .navbar .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar .user-name {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .navbar .btn-logout {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 50px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-card h2 {
+            color: #fff;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .welcome-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .stat-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+
+        .profile-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-top: 30px;
+        }
+
+        .profile-section h3 {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .info-item .value {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .welcome-card h2 {
+                font-size: 32px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Dashboard (Sample Project)</h1>
+        <div class="user-info">
+            <span class="user-name" id="userName">Loading...</span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Welcome Back! 👋</h2>
+            <p>You have successfully logged in to your dashboard. Explore your account and manage your settings.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">📊</div>
+                <h3>24</h3>
+                <p>Total Projects</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">✅</div>
+                <h3>18</h3>
+                <p>Completed Tasks</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">⏰</div>
+                <h3>6</h3>
+                <p>Pending Tasks</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">🎯</div>
+                <h3>92%</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+
+        <div class="profile-section">
+            <h3>Profile Information</h3>
+            <div class="profile-info">
+                <div class="info-item">
+                    <label>Full Name</label>
+                    <div class="value" id="userFullName">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Email Address</label>
+                    <div class="value" id="userEmail">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Member Since</label>
+                    <div class="value" id="memberSince">Loading...</div>
+                </div>
+                <div class="info-item">
+                    <label>Account Status</label>
+                    <div class="value">Active ✓</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        async function checkAuth() {
+            try {
+                const response = await fetch('auth.php?action=check');
+                const result = await response.json();
+                
+                if (!result.success) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                // Update user info
+                document.getElementById('userName').textContent = result.user.fullname || result.user.email;
+                document.getElementById('userFullName').textContent = result.user.fullname || 'Not set';
+                document.getElementById('userEmail').textContent = result.user.email;
+                
+                // Format date
+                const date = new Date(result.user.created_at);
+                document.getElementById('memberSince').textContent = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('auth.php?action=logout', { method: 'POST' });
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        }
+
+        // Check auth on page load
+        checkAuth();
+    </script>
+</body>
+</html>

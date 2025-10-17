@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Auth App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(3px);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 50px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 500px;
+        }
+
+        .welcome-card h1 {
+            color: #fff;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .welcome-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-login:hover {
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-signup:hover {
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.5);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-card {
+                margin: 20px;
+                padding: 40px 30px;
+            }
+
+            .welcome-card h1 {
+                font-size: 28px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-card">
+            <h1>Welcome! 👋</h1>
+            <p>Your PHP Authentication App is running successfully. Choose an option below to get started.</p>
+            
+            <div class="btn-group">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+            </div>
+
+            <div class="status">
+                ✅ Server is running on http://localhost:8000
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        async function checkAuth() {
+            try {
+                const response = await fetch('auth.php?action=check');
+                const result = await response.json();
+                
+                if (result.success) {
+                    // User is logged in, redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                // User is not logged in, stay on this page
+                console.log('User not authenticated');
+            }
+        }
+
+        // Check authentication status on page load
+        checkAuth();
+    </script>
+</body>
+</html>

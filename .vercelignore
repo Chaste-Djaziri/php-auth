@@ -1,0 +1,25 @@
+# Environment files (will be set in Vercel dashboard)
+config.env
+config.env.example
+
+# Development files
+start_server.php
+debug.php
+
+# Documentation
+README.md
+SETUP.md
+
+# Git
+.git
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
