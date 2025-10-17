@@ -40,9 +40,16 @@ function loadEnv($filePath) {
 }
 
 // Load environment variables from config.env (for local development)
-// In Vercel, environment variables are automatically available
+// In production (Railway/Vercel), environment variables are automatically available
 try {
-    loadEnv(__DIR__ . '/config.env');
+    // Check if we're in Railway (Railway sets RAILWAY_ENVIRONMENT)
+    if (getenv('RAILWAY_ENVIRONMENT')) {
+        // Railway environment - variables are already set
+        error_log("Railway environment detected - using system environment variables");
+    } else {
+        // Local development - load from config.env
+        loadEnv(__DIR__ . '/config.env');
+    }
 } catch (Exception $e) {
     error_log("Failed to load environment variables: " . $e->getMessage());
 }
